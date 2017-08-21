@@ -1,0 +1,64 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.my-form {
+    width: 495px;
+    margin: 55px auto 50px;
+}
+
+.form-item {
+    width: 325px;
+    margin-bottom: 20px;
+}
+
+.form-item__label {
+    margin: 0 0 6px;
+}
+
+.form-item input {
+    width: 100%;
+    min-height: 32px;
+    padding: 5px 10px;
+
+    line-height: 20px;
+    font-size: 15px;
+
+    border: 1px solid transparent;
+    border-color: rgba(0, 0, 0, 0.27);
+    border-top-color: rgba(0, 0, 0, 0.38);
+    border-bottom-color: rgba(0, 0, 0, 0.16);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2),
+                inset 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.form-item label {
+    font-size: 13px;
+    color: #666;
+}
+
+.form-submit__button {
+    padding: 13px 27px;
+
+    font-size: 24px;
+    text-align: center;
+    line-height: 22px;
+    color: #473e09;
+
+    border: none;
+    border-radius: 4px;
+    outline: none;
+    background: linear-gradient(to bottom, #ffe025, #f9c400 92%, #be8c05);
+    text-shadow: 0 1px 0 rgba(255,255,255,.36);
+    box-shadow: 0 0 1px 0 #fff;
+
+    cursor: pointer;
+}
+
+.form-submit__button:hover {
+    background: linear-gradient(to bottom, #fff025, #f9d400 92%, #be9c05);
+}
