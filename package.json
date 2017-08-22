@@ -4,15 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "browser-sync start --server --files \"**/*.*\""
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "normalize.css": "^7.0.0"
-  },
-  "devDependencies": {
-    "browsersync": "0.0.1-security"
   }
 }
