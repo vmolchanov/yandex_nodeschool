@@ -6,9 +6,10 @@
          * @constructor
          */
         constructor() {
-            this._fioInput   = document.getElementById("fio");
-            this._emailInput = document.getElementById("email");
-            this._phoneInput = document.getElementById("phone");
+            this._fioInput     = document.getElementById("fio");
+            this._emailInput   = document.getElementById("email");
+            this._phoneInput   = document.getElementById("phone");
+            this._submitButton = document.getElementById("submitButton");
         }
 
 
@@ -45,32 +46,36 @@
             if (this._emailInput.value.indexOf("@") === -1) {
                 isValid = false;
                 errorFields.push("email");
-            }
+            } else {
 
-            /**
-             * @type{Array} Массив, содержащий введеный email.
-             *     Под индексом 0 записан логин, под индексом 1 записан домен
-             */
-            let email = this._emailInput.value.split("@");
-            let isValidLogin = REG_EXP_FOR_EMAIL.test(email[0]);
-            let isValidDomain = DOMAINS.some(domain => {
-                return domain === email[1];
-            });
+                /**
+                 * @type{Array} Массив, содержащий введеный email.
+                 *     Под индексом 0 записан логин, под индексом 1 записан домен
+                 */
+                let email = this._emailInput.value.split("@");
+                let isValidLogin = REG_EXP_FOR_EMAIL.test(email[0]);
+                let isValidDomain = DOMAINS.some(domain => {
+                    return domain === email[1]; // TODO error maybe
+                });
 
-            if (!isValidLogin || !isValidDomain) {
-                isValid = false;
-                errorFields.push("email");
+                if (!isValidLogin || !isValidDomain) {
+                    isValid = false;
+                    errorFields.push("email");
+                }
+
             }
 
             const REG_EXP_FOR_PHONE = /\+7\(\d\d\d\)\d\d\d-\d\d-\d\d/;
 
             let isRightPhoneFormat = REG_EXP_FOR_PHONE.test(this._phoneInput.value);
-            let sumOfDigits = this._phoneInput.value.match(/\d+/ig)
+            let sumOfDigits = 31;
+
+            if (isRightPhoneFormat) {
+                sumOfDigits = this._phoneInput.value.match(/\d+/ig)
                                                     .join("")
                                                     .split("")
-                                                    .reduce((sum, value) => {
-                return sum + Number(value);
-            }, 0);
+                                                    .reduce((sum, value) => sum + Number(value), 0);
+            }
 
             if (!isRightPhoneFormat || sumOfDigits > 30) {
                 isValid = false;
@@ -118,17 +123,24 @@
         submit() {
             let { isValid, errorFields } = this.validate();
 
+            this._fioInput.classList.remove("error");
+            this._emailInput.classList.remove("error");
+            this._phoneInput.classList.remove("error");
+
             if (!isValid) {
-                if ("fio" in errorFields) {
+                if (errorFields.find(field => field === "fio")) {
                     this._fioInput.classList.add("error");
                 }
-                if ("email" in errorFields) {
+                if (errorFields.find(field => field === "email")) {
                     this._emailInput.classList.add("error");
                 }
-                if ("phone" in errorFields) {
+                if (errorFields.find(field => field === "phone")) {
                     this._phoneInput.classList.add("error");
                 }
+                return;
             }
+
+            this._submitButton.disabled = true;
         }
 
     }

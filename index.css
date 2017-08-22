@@ -36,6 +36,10 @@ body {
                 inset 0 1px 1px rgba(0, 0, 0, 0.1);
 }
 
+.form-item input.error {
+    border: 1px solid red;
+}
+
 .form-item label {
     font-size: 13px;
     color: #666;
@@ -59,6 +63,16 @@ body {
     cursor: pointer;
 }
 
+.form-submit__button[disabled] {
+    background: linear-gradient(to bottom, #ccc, #aaa 92%, #888);
+}
+
 .form-submit__button:hover {
     background: linear-gradient(to bottom, #fff025, #f9d400 92%, #be9c05);
+}
+
+.form-submit__button[disabled]:hover {
+    background: linear-gradient(to bottom, #ccc, #aaa 92%, #888);
+
+    cursor: default;
 }
