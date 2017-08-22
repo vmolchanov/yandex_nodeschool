@@ -6,10 +6,11 @@
          * @constructor
          */
         constructor() {
-            this._fioInput     = document.getElementById("fio");
-            this._emailInput   = document.getElementById("email");
-            this._phoneInput   = document.getElementById("phone");
-            this._submitButton = document.getElementById("submitButton");
+            this._fioInput        = document.getElementById("fio");
+            this._emailInput      = document.getElementById("email");
+            this._phoneInput      = document.getElementById("phone");
+            this._submitButton    = document.getElementById("submitButton");
+            this._resultContainer = document.getElementById("resultContainer");
         }
 
 
@@ -55,7 +56,7 @@
                 let email = this._emailInput.value.split("@");
                 let isValidLogin = REG_EXP_FOR_EMAIL.test(email[0]);
                 let isValidDomain = DOMAINS.some(domain => {
-                    return domain === email[1]; // TODO error maybe
+                    return domain === email[1];
                 });
 
                 if (!isValidLogin || !isValidDomain) {
@@ -141,6 +142,37 @@
             }
 
             this._submitButton.disabled = true;
+
+            let xhr = new XMLHttpRequest();
+
+            xhr.open("GET", "/send");
+            xhr.addEventListener("readystatechange", event => {
+                if (xhr.readyState === xhr.DONE) {
+                    let response = JSON.parse(xhr.responseText);
+
+                    switch (response.status) {
+                        case "success":
+                            console.log("success");
+                            this._resultContainer.classList.add("success");
+                            this._resultContainer.innerHTML = "Success";
+                            break;
+                        case "error":
+                            console.log("error");
+                            this._resultContainer.classList.add("error");
+                            this._resultContainer.innerHTML = response.reason;
+                            break;
+                        case "progress":
+                            console.log("progress");
+                            this._resultContainer.classList.add("progress");
+                            setTimeout(() => {
+                                this._resultContainer.classList.remove("progress");
+                                xhr.open("GET", "/send");
+                                xhr.send(null);
+                            }, response.timeout);
+                    }
+                }
+            });
+            xhr.send(null);
         }
 
     }

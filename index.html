@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="form-container">
-        <form action="#" id="myForm" class="my-form">
+        <form action="/send" id="myForm" class="my-form" method="GET">
             <div class="form-item">
                 <div class="form-item__label">
                     <label for="fio">ФИО</label>
@@ -38,10 +38,9 @@
             <div class="form-submit">
                 <input id="submitButton" class="form-submit__button" type="submit" value="Отправить">
             </div>
+            <div id="resultContainer" class="result-container"></div>
         </form>
     </div>
-
-    <!-- TODO добавить контейнер div#resultContainer для вывода результата -->
 
     <script src="index.js"></script>
 </body>
